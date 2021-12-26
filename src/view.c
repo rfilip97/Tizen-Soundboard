@@ -40,6 +40,8 @@ static struct view_info {
 #define TRACK7 ""
 #define TRACK8 ""
 #define TRACK9 ""
+#define DEFAULT ""
+#define SILENCE -1
 
 static void _win_delete_request_cb(void *data, Evas_Object *obj, void *event_info);
 static void _rectangle_mouse_down_cb(void *data, Evas *e, Evas_Object *obj, void *event_info);
@@ -97,7 +99,7 @@ static void _get_track_path_by_index(uint32_t index, char *result_path) {
     case 7: file_in = TRACK7; break;
     case 8: file_in = TRACK8; break;
     case 9: file_in = TRACK9; break;
-    default: file_in = TRACK0;
+    default: file_in = DEFAULT;
     }
 
     if (res_path) {
@@ -684,6 +686,10 @@ static void _rectangle_mouse_down_cb(void *data, Evas *e, Evas_Object *obj, void
 	/* Play sound effect */
 	if (s_info.mouse_down_dial_num != -1) {
 		_play_current_music(s_info.mouse_down_dial_num);
+	}
+	/* Stop current sound */
+	else {
+		_play_current_music(SILENCE);
 	}
 }
 
